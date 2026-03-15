@@ -1,29 +1,43 @@
 package com.victor.gestao_de_estoque.mapper;
 
-import com.victor.gestao_de_estoque.controller.request.ProdutoRequest;
 import com.victor.gestao_de_estoque.controller.response.ProdutoResponse;
 import com.victor.gestao_de_estoque.model.Produto;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class ProdutoMapper {
-    public Produto toProduto (ProdutoRequest produtoRequest) {
-        return Produto
-                .builder()
-                .name(produtoRequest.name())
-                .descricao(produtoRequest.descricao())
-                .quantidade(produtoRequest.quantidade())
-                .preco(produtoRequest.preco())
-                .build();
+    public static ProdutoResponse toResponseEstoque(Produto produto) {
+
+        String fornecedorNome = null;
+
+        if (produto.getFornecedor() != null) {
+            fornecedorNome = produto.getFornecedor().getNome();
+        }
+
+        return new ProdutoResponse(
+                produto.getId(),
+                produto.getName(),
+                produto.getDescricao(),
+                produto.getPreco(),
+                fornecedorNome,
+                0   // valor padrão
+        );
     }
 
-    public ProdutoResponse toResponse (Produto produto) {
-        return ProdutoResponse
-                .builder()
-                .name(produto.getName())
-                .descricao(produto.getDescricao())
-                .quantidade(produto.getQuantidade())
-                .preco(produto.getPreco())
-                .build();
+
+    public ProdutoResponse toResponse (Produto produto, Integer estoqueAtual) {
+        String fornecedorNome = null;
+
+        if (produto.getFornecedor() != null) {
+            fornecedorNome = produto.getFornecedor().getNome();
+        }
+        return new ProdutoResponse (
+                produto.getId(),
+                produto.getName(),
+                produto.getDescricao(),
+                produto.getPreco(),
+                fornecedorNome,
+                estoqueAtual
+                        );
     }
 }
