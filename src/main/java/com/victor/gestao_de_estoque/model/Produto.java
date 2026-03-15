@@ -16,17 +16,18 @@ public class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @NotNull
     private String name;
 
     private String descricao;
 
-    @NotNull
-    @Positive
-    private Integer quantidade;
-
-    @NotNull
     private BigDecimal preco;
+
+    @ManyToOne
+    @JoinColumn(name = "fornecedor_id", nullable = true)
+    private Fornecedor fornecedor;
+
 
     public Long getId() {
         return id;
@@ -52,19 +53,19 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    public Integer getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(Integer quantidade) {
-        this.quantidade = quantidade;
-    }
-
     public BigDecimal getPreco() {
         return preco;
     }
 
     public void setPreco(BigDecimal preco) {
         this.preco = preco;
+    }
+
+    public Fornecedor getFornecedor() {
+        return fornecedor;
+    }
+
+    public void setFornecedor(Fornecedor fornecedor) {
+        this.fornecedor = fornecedor;
     }
 }
