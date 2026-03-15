@@ -1,9 +1,9 @@
-package com.victor.gestao_de_estoque.mapper;
+package com.victor.gestao_de_estoque.model;
 
 import com.victor.gestao_de_estoque.enums.TipoMovimentacao;
-import com.victor.gestao_de_estoque.model.Produto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -27,6 +27,7 @@ public class MovimentacaoEstoque {
 
     // Quantidade movimentada
     @NotNull
+    @Positive
     private Integer quantidade;
 
     // Tipo da movimentação: ENTRADA ou SAÍDA
