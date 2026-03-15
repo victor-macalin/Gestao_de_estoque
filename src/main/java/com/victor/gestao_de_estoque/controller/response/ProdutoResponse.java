@@ -5,5 +5,11 @@ import lombok.Builder;
 import java.math.BigDecimal;
 
 @Builder
-public record ProdutoResponse(Long id, String name, String descricao, Integer quantidade, BigDecimal preco) {
+public record ProdutoResponse(
+        Long id,
+        String name,
+        String descricao,
+        BigDecimal preco,
+        String fornecedorNome,
+        Integer estoqueAtual) {
 }
