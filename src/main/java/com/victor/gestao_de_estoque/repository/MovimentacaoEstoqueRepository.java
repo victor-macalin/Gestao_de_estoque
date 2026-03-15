@@ -1,4 +1,29 @@
 package com.victor.gestao_de_estoque.repository;
 
-public interface MovimentacaoEstoqueRepository {
+import com.victor.gestao_de_estoque.model.MovimentacaoEstoque;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public interface MovimentacaoEstoqueRepository
+        extends JpaRepository<MovimentacaoEstoque, Long> {
+
+    List<MovimentacaoEstoque> findByProdutoId(Long produtoId);
+
+    @Query("""
+       SELECT COALESCE(SUM(
+           CASE 
+               WHEN m.tipo = 'ENTRADA' THEN m.quantidade
+               ELSE -m.quantidade
+           END
+       ),0)
+       FROM MovimentacaoEstoque m
+       WHERE m.produto.id = :produtoId
+       """)
+    Integer calcularEstoqueAtual(@Param("produtoId") Long produtoId);
+
 }
