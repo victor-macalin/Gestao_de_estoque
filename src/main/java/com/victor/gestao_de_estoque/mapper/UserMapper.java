@@ -11,7 +11,7 @@ public class UserMapper {
     public User toUser (UserRequest userRequest) {
         return User
                 .builder()
-                .nome(userRequest.nome())
+                .name(userRequest.name())
                 .email(userRequest.email())
                 .password(userRequest.password())
                 .build();
@@ -21,7 +21,7 @@ public class UserMapper {
         return UserResponse
                 .builder()
                 .id(user.getId())
-                .nome(user.getNome())
+                .name(user.getName())
                 .email(user.getEmail())
                 .password(user.getPassword())
                 .build();

@@ -6,7 +6,7 @@ import lombok.Builder;
 @Builder
 public record UserRequest(
         @Column(nullable = false)
-         String nome,
+         String name,
 
         @Column(nullable = false, unique = true)
          String email,
