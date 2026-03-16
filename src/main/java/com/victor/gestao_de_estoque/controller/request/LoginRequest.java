@@ -1,4 +1,4 @@
 package com.victor.gestao_de_estoque.controller.request;
 
-public record LoginRequest() {
+public record LoginRequest(String email, String password) {
 }
