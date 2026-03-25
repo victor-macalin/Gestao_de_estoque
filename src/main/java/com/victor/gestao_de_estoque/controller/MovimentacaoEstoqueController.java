@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/movimentacoes")
+@RequestMapping("/api/movimentacoes")
 @RequiredArgsConstructor
 public class MovimentacaoEstoqueController {
 
