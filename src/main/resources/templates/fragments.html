@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" th:href="@{/css/main.css}"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+<!-- ── SIDEBAR ── -->
+<div th:fragment="sidebar(active)">
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="badge">⚡</div>
+      <span>Gestão de<br/>Estoque</span>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-label">Menu</div>
+      <a href="/dashboard"    class="nav-item" th:classappend="${active=='dashboard'?'active':''}">
+        <span class="icon">📊</span> Dashboard
+      </a>
+      <a href="/produtos"     class="nav-item" th:classappend="${active=='produtos'?'active':''}">
+        <span class="icon">📦</span> Produtos
+      </a>
+      <a href="/fornecedores" class="nav-item" th:classappend="${active=='fornecedores'?'active':''}">
+        <span class="icon">🏢</span> Fornecedores
+      </a>
+      <a href="/movimentacoes" class="nav-item" th:classappend="${active=='movimentacoes'?'active':''}">
+        <span class="icon">🔄</span> Movimentações
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="btn-logout" onclick="logout()">
+        <span>🚪</span> Sair
+      </button>
+    </div>
+  </aside>
+</div>
+
+</body>
+</html>

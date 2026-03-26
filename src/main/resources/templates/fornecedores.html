@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fornecedores — Gestão de Estoque</title>
+  <link rel="stylesheet" th:href="@{/css/main.css}"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+<div id="toast"></div>
+
+<div class="app">
+
+  <div th:replace="~{fragments :: sidebar('fornecedores')}"></div>
+
+  <div class="main-wrap">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="btn-menu" id="btnMenu">☰</button>
+        <h2>🏢 Fornecedores</h2>
+      </div>
+      <div class="topbar-right">
+        <div class="user-badge">U</div>
+      </div>
+    </header>
+
+    <main class="page-content">
+      <div class="table-card">
+        <div class="table-toolbar">
+          <h3>Lista de Fornecedores</h3>
+          <div class="toolbar-actions">
+            <input type="search" id="searchFornecedor" class="search-input" placeholder="🔍 Buscar fornecedor..."/>
+            <button class="btn btn-outline btn-sm" id="btnExportFornecedores">📊 Exportar Excel</button>
+            <button class="btn btn-primary" id="btnNovoFornecedor">+ Novo Fornecedor</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Telefone</th>
+                <th>E-mail</th>
+                <th>Endereço</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyFornecedores">
+              <tr><td colspan="5" class="table-empty">Carregando...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- MODAL FORNECEDOR -->
+<div class="modal-overlay" id="modalFornecedor">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="modalFornTitle">Novo Fornecedor</h3>
+      <button class="modal-close" onclick="closeModal('modalFornecedor')">✕</button>
+    </div>
+    <form id="formFornecedor">
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Nome *</label>
+          <input id="inpFornNome" type="text" class="form-control" placeholder="Nome do fornecedor" required/>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Telefone</label>
+            <input id="inpFornTel" type="text" class="form-control" placeholder="(51) 99999-9999"/>
+          </div>
+          <div class="form-group">
+            <label>E-mail</label>
+            <input id="inpFornEmail" type="email" class="form-control" placeholder="contato@empresa.com"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Endereço</label>
+          <input id="inpFornEnder" type="text" class="form-control" placeholder="Rua, número, cidade"/>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" onclick="closeModal('modalFornecedor')">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Salvar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+<script th:src="@{/js/main.js}"></script>
+<script>initFornecedores();</script>
+</body>
+</html>

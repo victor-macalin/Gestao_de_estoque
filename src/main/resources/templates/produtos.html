@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Produtos — Gestão de Estoque</title>
+  <link rel="stylesheet" th:href="@{/css/main.css}"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+<div id="toast"></div>
+
+<div class="app">
+
+  <div th:replace="~{fragments :: sidebar('produtos')}"></div>
+
+  <div class="main-wrap">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="btn-menu" id="btnMenu">☰</button>
+        <h2>📦 Produtos</h2>
+      </div>
+      <div class="topbar-right">
+        <div class="user-badge">U</div>
+      </div>
+    </header>
+
+    <main class="page-content">
+      <div class="table-card">
+        <div class="table-toolbar">
+          <h3>Lista de Produtos</h3>
+          <div class="toolbar-actions">
+            <input type="search" id="searchProduto" class="search-input" placeholder="🔍 Buscar produto..."/>
+            <button class="btn btn-outline btn-sm" id="btnExportProdutos">📊 Exportar Excel</button>
+            <button class="btn btn-primary" id="btnNovoProduto">+ Novo Produto</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Preço</th>
+                <th>Fornecedor</th>
+                <th>Estoque</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyProdutos">
+              <tr><td colspan="6" class="table-empty">Carregando...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- MODAL PRODUTO -->
+<div class="modal-overlay" id="modalProduto">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="modalProdTitle">Novo Produto</h3>
+      <button class="modal-close" onclick="closeModal('modalProduto')">✕</button>
+    </div>
+    <form id="formProduto">
+      <input type="hidden" id="inpProdId"/>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Nome do Produto *</label>
+          <input id="inpProdNome" type="text" class="form-control" placeholder="Ex: Painel Solar 400W" required/>
+        </div>
+        <div class="form-group">
+          <label>Descrição</label>
+          <input id="inpProdDesc" type="text" class="form-control" placeholder="Descrição opcional"/>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Preço (R$)</label>
+            <input id="inpProdPreco" type="number" step="0.01" min="0" class="form-control" placeholder="0,00"/>
+          </div>
+          <div class="form-group">
+            <label>Fornecedor</label>
+            <select id="selFornecedorProd" class="form-control">
+              <option value="">— Sem fornecedor —</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" onclick="closeModal('modalProduto')">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Salvar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+<script th:src="@{/js/main.js}"></script>
+<script>initProdutos();</script>
+</body>
+</html>

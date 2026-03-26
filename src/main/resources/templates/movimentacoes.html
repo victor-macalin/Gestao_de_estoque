@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Movimentações — Gestão de Estoque</title>
+  <link rel="stylesheet" th:href="@{/css/main.css}"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+<div id="toast"></div>
+
+<div class="app">
+
+  <div th:replace="~{fragments :: sidebar('movimentacoes')}"></div>
+
+  <div class="main-wrap">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="btn-menu" id="btnMenu">☰</button>
+        <h2>🔄 Movimentações</h2>
+      </div>
+      <div class="topbar-right">
+        <div class="user-badge">U</div>
+      </div>
+    </header>
+
+    <main class="page-content">
+      <div class="table-card">
+        <div class="table-toolbar">
+          <h3>Histórico de Movimentações</h3>
+          <div class="toolbar-actions">
+            <input type="search" id="searchMov" class="search-input" placeholder="🔍 Buscar produto..."/>
+            <div class="filter-tabs">
+              <button class="filter-tab active" data-tipo="TODOS">Todos</button>
+              <button class="filter-tab entrada" data-tipo="ENTRADA">⬆ Entrada</button>
+              <button class="filter-tab saida"   data-tipo="SAIDA">⬇ Saída</button>
+            </div>
+            <button class="btn btn-outline btn-sm" id="btnExportMovs">📊 Exportar Excel</button>
+            <button class="btn btn-yellow" id="btnNovaMovimentacao">+ Nova Movimentação</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Produto</th>
+                <th>Tipo</th>
+                <th>Quantidade</th>
+                <th>Data</th>
+                <th>Estoque Atual</th>
+                <th>Observação</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyMovs">
+              <tr><td colspan="6" class="table-empty">Carregando...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- MODAL MOVIMENTAÇÃO -->
+<div class="modal-overlay" id="modalMovimentacao">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Nova Movimentação</h3>
+      <button class="modal-close" onclick="closeModal('modalMovimentacao')">✕</button>
+    </div>
+    <form id="formMovimentacao">
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Produto *</label>
+          <select id="selProdutoMov" class="form-control" required>
+            <option value="">Selecione o produto</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Tipo *</label>
+            <select id="selMovTipo" class="form-control" required>
+              <option value="ENTRADA">⬆ ENTRADA</option>
+              <option value="SAIDA">⬇ SAÍDA</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Quantidade *</label>
+            <input id="inpMovQtd" type="number" min="1" class="form-control" placeholder="0" required/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Observação</label>
+          <input id="inpMovObs" type="text" class="form-control" placeholder="Ex: Compra NF-123, Venda pedido #456"/>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" onclick="closeModal('modalMovimentacao')">Cancelar</button>
+        <button type="submit" class="btn btn-yellow">Registrar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+<script th:src="@{/js/main.js}"></script>
+<script>initMovimentacoes();</script>
+</body>
+</html>
