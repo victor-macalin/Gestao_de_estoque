@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard — Gestão de Estoque</title>
+  <link rel="stylesheet" th:href="@{/css/main.css}"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+<div id="toast"></div>
+
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <div th:replace="~{fragments :: sidebar('dashboard')}"></div>
+
+  <!-- MAIN -->
+  <div class="main-wrap">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="btn-menu" id="btnMenu">☰</button>
+        <h2>Dashboard</h2>
+      </div>
+      <div class="topbar-right">
+        <span style="font-size:13px;color:var(--cinza);" id="topbarDate"></span>
+        <div class="user-badge" id="userBadge">U</div>
+      </div>
+    </header>
+
+    <main class="page-content">
+
+      <!-- STATS -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="sc-header">
+            <div>
+              <div class="sc-label">Total de Produtos</div>
+              <div class="sc-value" id="statProdutos">—</div>
+            </div>
+            <div class="sc-icon azul">📦</div>
+          </div>
+          <div class="sc-sub">Cadastrados no sistema</div>
+        </div>
+        <div class="stat-card">
+          <div class="sc-header">
+            <div>
+              <div class="sc-label">Itens em Estoque</div>
+              <div class="sc-value" id="statEstoque">—</div>
+            </div>
+            <div class="sc-icon amar">🏷️</div>
+          </div>
+          <div class="sc-sub">Unidades disponíveis</div>
+        </div>
+        <div class="stat-card">
+          <div class="sc-header">
+            <div>
+              <div class="sc-label">Entradas</div>
+              <div class="sc-value" id="statEntradas" style="color:var(--entrada)">—</div>
+            </div>
+            <div class="sc-icon verde">⬆️</div>
+          </div>
+          <div class="sc-sub">Total de movimentações</div>
+        </div>
+        <div class="stat-card">
+          <div class="sc-header">
+            <div>
+              <div class="sc-label">Saídas</div>
+              <div class="sc-value" id="statSaidas" style="color:var(--saida)">—</div>
+            </div>
+            <div class="sc-icon verm">⬇️</div>
+          </div>
+          <div class="sc-sub">Total de movimentações</div>
+        </div>
+      </div>
+
+      <!-- GRÁFICOS -->
+      <div class="charts-grid">
+        <div class="chart-card">
+          <h3>📈 Movimentações — Últimos 7 dias</h3>
+          <canvas id="chartMovs" height="200"></canvas>
+        </div>
+        <div class="chart-card">
+          <h3>🥧 Distribuição de Estoque</h3>
+          <canvas id="chartEstoque" height="200"></canvas>
+        </div>
+      </div>
+
+      <!-- TABELA RECENTES -->
+      <div class="table-card">
+        <div class="table-toolbar">
+          <h3>🔄 Últimas Movimentações</h3>
+          <a href="/movimentacoes" class="btn btn-outline btn-sm">Ver todas →</a>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Produto</th>
+                <th>Tipo</th>
+                <th>Qtd</th>
+                <th>Data</th>
+                <th>Estoque Atual</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyMovRecentes">
+              <tr><td colspan="5" class="table-empty">Carregando...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script th:src="@{/js/main.js}"></script>
+<script>
+  document.getElementById('topbarDate').textContent = new Date().toLocaleDateString('pt-BR', {weekday:'long', day:'2-digit', month:'long'});
+  initDashboard();
+</script>
+</body>
+</html>
