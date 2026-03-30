@@ -535,3 +535,33 @@ async function saveMovimentacao(e) {
   } catch (err) { toast(err.message, 'err'); }
   finally { setLoading(btn, false); }
 }
+
+/* ─────────────── REGISTER PAGE ─────────────── */
+async function initRegister() {
+  if (getToken()) { location.href = '/dashboard'; return; }
+
+  document.getElementById('formRegister')?.addEventListener('submit', async e => {
+    e.preventDefault();
+    const btn = e.target.querySelector('[type=submit]');
+    const password = document.getElementById('password').value;
+    const confirm  = document.getElementById('confirmPassword').value;
+
+    if (password !== confirm) {
+      toast('As senhas não coincidem', 'err');
+      return;
+    }
+
+    setLoading(btn, true);
+    try {
+      await api('POST', '/auth/register', {
+        name:     document.getElementById('name').value,
+        email:    document.getElementById('email').value,
+        password: password
+      });
+      toast('Conta criada com sucesso! Redirecionando...');
+      setTimeout(() => location.href = '/login', 1500);
+    } catch (err) {
+      toast(err.message || 'Erro ao cadastrar', 'err');
+    } finally { setLoading(btn, false); }
+  });
+}
