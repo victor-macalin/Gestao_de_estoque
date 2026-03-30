@@ -30,8 +30,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
                         // Páginas Thymeleaf (frontend)
-                        .requestMatchers("/", "/login", "/dashboard", "/produtos",
-                                         "/fornecedores", "/movimentacoes").permitAll()
+                        .requestMatchers("/", "/login", "/register", "/dashboard", "/produtos",
+                                "/fornecedores", "/movimentacoes").permitAll()
                         // Recursos estáticos
                         .requestMatchers("/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
                         // API de autenticação

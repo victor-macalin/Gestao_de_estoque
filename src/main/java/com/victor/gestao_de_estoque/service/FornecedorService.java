@@ -22,11 +22,6 @@ public class FornecedorService {
     // READ ALL
     public List<Fornecedor> read() {
         List<Fornecedor> fornecedores = fornecedorRepository.findAll();
-
-        if (fornecedores.isEmpty()) {
-            throw new ResourceNotFound("Nenhum fornecedor encontrado");
-        }
-
         return fornecedores;
     }
 
